@@ -1,0 +1,45 @@
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_you_url.css') }}">
+</head>
+
+{% extends 'base.html' %}
+
+{% block title %}URL for {% if code %}"{{ code }}"{% endif %}{% endblock %}
+
+{% block main %}
+
+
+
+
+  <div calss="header">
+    <h1>URL Created</h1>
+  </div>
+
+  <div class="topnav">
+    <a href="/">New URLS</a>
+  </div>
+
+<div class="row">
+    <div class="column">
+
+
+  <input class="lead" id="new_url" value="{{ url_for('urlshort.redirect_to_url', code=code, _external=True) }}" readonly>
+  <p>
+    <button class="button", onclick="myFunction()" class="btn btn-primary my-2">Copy URL</button>
+  </p>
+
+
+
+<script>
+  function myFunction() {
+    var copyText = document.getElementById("new_url");
+    copyText.select();
+    document.execCommand("copy");
+  }
+</script>
+
+</div>
+</div>
+
+{% endblock %}

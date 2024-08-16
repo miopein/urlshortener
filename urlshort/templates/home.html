@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_home.css') }}">
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block title %}URL Shortenen{% endblock %}
+
+    {% block main %}
+
+
+    <div calss="header">
+      <h1 >URL SHORTENER</h1>
+    </div>
+
+    <div class="topnav">
+      <a href="{{ url_for('urlshort.session_api') }}">API</a>
+      <a href="{{ url_for('urlshort.home') }}">New URLS</a>
+    </div>
+
+
+    <div class="row">
+      <div class="column">
+
+      
+    <form action="you_url" method="post">
+        <label for="url">Website URL</label><br>
+        <input type="url" name="url" value="" required><br>
+        <label for="code">Short Name</label><br>
+        <input type="text" name="code" value="" required><br>
+        <br>
+        <input type="submit" class="button" value="Shortenen">
+      </form>
+
+      </div>
+      <div class="column">
+
+
+      <form action="you_url" method="post" enctype="multipart/form-data">
+        <label for="file">File</label><br>
+        <input type="file" name="file" value="" required><br>
+        <label for="code">Short Name</label><br>
+        <input type="text" name="code" value="" required><br>
+        <br>
+        <input class="button" type="submit" value="Shortenen">
+      </form>
+
+      </div>
+    </div>
+
+    <div class="footer">
+
+      {% if codes %}
+      <h2>Codes you have created</h2>
+      <ul>
+        {% for code in codes %}
+        <a href="{{ url_for('urlshort.redirect_to_url', code=code)}}">
+        <li>{{ code }}</li>
+        </a>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+    {% endblock %}
+
+    </div>
+
+
+
+</body>
+</html>
