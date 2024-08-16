@@ -1,15 +1,16 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, abort, session, jsonify, Blueprint
+from flask import Flask, render_template, request, redirect, url_for, flash, abort, session, jsonify
 import json
 import os.path
 from werkzeug.utils import secure_filename
 
-bp = Blueprint('urlshort', __name__)
+app = Flask(__name__)
+app.secret_key ='gehkgjsljdrwe'
 
-@bp.route("/")
+@app.route("/")
 def home():
     return render_template('home.html' , codes=session.keys())
 
-@bp.route("/you_url", methods=['GET','POST'])
+@app.route("/you_url", methods=['GET','POST'])
 def you_url():
     if request.method == 'POST':
         urls={}
@@ -20,14 +21,14 @@ def you_url():
 
         if request.form['code'] in urls.keys():
             flash('That short name has already been taken. Please select another name.')
-            return redirect(url_for('urlshort.home'))
+            return redirect(url_for('home'))
 
         if 'url' in request.form.keys():
             urls[request.form['code']] = {'url':request.form['url']}
         else:
             f =request.files['file']
             full_name = request.form['code'] + secure_filename(f.filename)
-            f.save('C:\\Users\\natar\\OneDrive\\Рабочий стол\\projects\\helloword_framework\\static\\urlshort\\user_files\\' + full_name)
+            f.save('C:\\Users\\natar\\OneDrive\\Рабочий стол\\projects\\helloword_framework\\static\\user_files\\' + full_name)
             urls[request.form['code']] = {'file':full_name}
 
 
@@ -36,10 +37,10 @@ def you_url():
            session[request.form['code']] = True
         return render_template('you_url.html', code=request.form['code'])
     else:
-        return redirect(url_for('urlshort.home'))
+        return redirect(url_for('home'))
 
 
-@bp.route('/<string:code>')
+@app.route('/<string:code>')
 def redirect_to_url(code):
     if os.path.exists('urls.json'):
         with open('urls.json') as urls_file:
@@ -51,10 +52,13 @@ def redirect_to_url(code):
                     return redirect (url_for('static',filename='user_files/'+urls[code]['file'] ))
     return abort(404)
 
-@bp.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
-@bp.route('/api')
+@app.route('/api')
 def session_api():
     return jsonify(list(session.keys()))
+
+if __name__ == "__main__":
+    app.run(debug=True)
