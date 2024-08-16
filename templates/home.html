@@ -18,8 +18,8 @@
     </div>
 
     <div class="topnav">
-      <a href="{{ url_for('urlshort.session_api') }}">API</a>
-      <a href="{{ url_for('urlshort.home') }}">New URLS</a>
+      <a href="{{ url_for('session_api') }}">API</a>
+      <a href="{{ url_for('home') }}">New URLS</a>
     </div>
 
 
@@ -58,7 +58,7 @@
       <h2>Codes you have created</h2>
       <ul>
         {% for code in codes %}
-        <a href="{{ url_for('urlshort.redirect_to_url', code=code)}}">
+        <a href="{{ url_for('redirect_to_url', code=code)}}">
         <li>{{ code }}</li>
         </a>
         {% endfor %}
