@@ -7,6 +7,5 @@ def create_app(test_config=None):
     from . import urlshort
     app.register_blueprint(urlshort.bp)
 
-
     return app
 

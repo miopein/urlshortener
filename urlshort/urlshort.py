@@ -39,7 +39,6 @@ def you_url():
         return redirect(url_for('urlshort.home'))
 
 
-
 @bp.route('/<string:code>')
 def redirect_to_url(code):
     if os.path.exists('urls.json'):
@@ -59,6 +58,3 @@ def page_not_found(error):
 @bp.route('/api')
 def session_api():
     return jsonify(list(session.keys()))
-
-
-
