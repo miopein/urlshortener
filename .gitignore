@@ -2,5 +2,8 @@ venv
 .vscode
 test.py
 __pycache__
-static
 urls.json
+# exclude everything
+static/user_files/*
+# exception to the rule
+!static/user_files/.gitkeep 

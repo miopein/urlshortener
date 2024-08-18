@@ -27,7 +27,7 @@ def you_url():
         else:
             f =request.files['file']
             full_name = request.form['code'] + secure_filename(f.filename)
-            f.save('C:\\Users\\natar\\OneDrive\\Рабочий стол\\projects\\helloword_framework\\static\\urlshort\\user_files\\' + full_name)
+            f.save('C:\\Users\\natar\\OneDrive\\Рабочий стол\\projects\\helloword_framework\\urlshort\\static\\user_files\\' + full_name)
             urls[request.form['code']] = {'file':full_name}
 
 
